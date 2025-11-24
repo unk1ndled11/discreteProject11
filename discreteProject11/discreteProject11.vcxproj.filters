@@ -15,24 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\main.cpp">
+    <ClCompile Include="SetsRelationsFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\SetsRelationsFunctions.cpp">
+    <ClCompile Include="SchedulingModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\SetsRelationsFunctions.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Entities.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="SimpleVector.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SetsRelationsFunctions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SchedulingModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

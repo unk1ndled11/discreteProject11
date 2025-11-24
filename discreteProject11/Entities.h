@@ -1,11 +1,11 @@
 #ifndef ENTITIES_H
 #define ENTITIES_H
 
-#include "SimpleVector.h" // Include your custom vector
+#include <iostream>
+#include <cstring>
+#include "SimpleVector.h"
 
-// Basic String Helper to avoid <string> if you want strict "no STL"
-// But for simplicity in structs, we will use char arrays as seen in your main.cpp
-#include <string.h>
+using namespace std;
 
 struct Student {
     int id;
@@ -14,7 +14,9 @@ struct Student {
 
     Student() : id(0), semester(0) { name[0] = '\0'; }
     Student(int i, const char* n, int s) : id(i), semester(s) {
-        strcpy_s(name, 100, n); // strcpy_s is safer for Visual Studio
+        int len = 0;
+        while (n[len] != '\0' && len < 99) { name[len] = n[len]; len++; }
+        name[len] = '\0';
     }
 };
 
@@ -24,10 +26,20 @@ struct Course {
     char title[100];
     int credits;
 
+    // === GRAPH IMPLEMENTATION ===
+    // This vector makes 'Course' a Graph Node. 
+    // It stores the IDs of courses that are required BEFORE this one.
+    SimpleVector<int> prerequisiteIDs;
+
     Course() : id(0), credits(0) { code[0] = '\0'; title[0] = '\0'; }
     Course(int i, const char* c, const char* t, int cr) : id(i), credits(cr) {
-        strcpy_s(code, 50, c);
-        strcpy_s(title, 100, t);
+        int len = 0;
+        while (c[len] != '\0' && len < 49) { code[len] = c[len]; len++; }
+        code[len] = '\0';
+
+        len = 0;
+        while (t[len] != '\0' && len < 99) { title[len] = t[len]; len++; }
+        title[len] = '\0';
     }
 };
 
@@ -38,8 +50,13 @@ struct Faculty {
 
     Faculty() : id(0) { name[0] = '\0'; department[0] = '\0'; }
     Faculty(int i, const char* n, const char* d) : id(i) {
-        strcpy_s(name, 100, n);
-        strcpy_s(department, 50, d);
+        int len = 0;
+        while (n[len] != '\0' && len < 99) { name[len] = n[len]; len++; }
+        name[len] = '\0';
+
+        len = 0;
+        while (d[len] != '\0' && len < 49) { department[len] = d[len]; len++; }
+        department[len] = '\0';
     }
 };
 
@@ -50,7 +67,9 @@ struct Room {
 
     Room() : id(0), capacity(0) { code[0] = '\0'; }
     Room(int i, const char* c, int cap) : id(i), capacity(cap) {
-        strcpy_s(code, 50, c);
+        int len = 0;
+        while (c[len] != '\0' && len < 49) { code[len] = c[len]; len++; }
+        code[len] = '\0';
     }
 };
 

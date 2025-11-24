@@ -127,13 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\main.cpp" />
-    <ClCompile Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\SetsRelationsFunctions.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SchedulingModule.cpp" />
+    <ClCompile Include="SetsRelationsFunctions.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Semester Project\Rough Shit\Project1\Project1\SetsRelationsFunctions.h" />
     <ClInclude Include="Entities.h" />
+    <ClInclude Include="SchedulingModule.h" />
+    <ClInclude Include="SetsRelationsFunctions.h" />
     <ClInclude Include="SimpleVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

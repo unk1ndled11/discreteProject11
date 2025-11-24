@@ -21,7 +21,7 @@ private:
 public:
     SimpleVector() : data(nullptr), capacity(0), currentSize(0) {}
 
-    // Copy constructor to handle passing by value if needed
+    // Copy constructor (Essential for managing data correctly without STL)
     SimpleVector(const SimpleVector& other) {
         capacity = other.capacity;
         currentSize = other.currentSize;
@@ -32,7 +32,7 @@ public:
     }
 
     ~SimpleVector() {
-        delete[] data;
+        if (data) delete[] data;
     }
 
     void push_back(const T& element) {
@@ -42,24 +42,16 @@ public:
         data[currentSize++] = element;
     }
 
-    // Needed for your FunctionModule::remove logic
     void remove(int index) {
         if (index < 0 || index >= currentSize) return;
-
-        // Shift everything left
         for (int i = index; i < currentSize - 1; i++) {
             data[i] = data[i + 1];
         }
         currentSize--;
     }
 
-    int getSize() const {
-        return currentSize;
-    }
-
-    T& operator[](int index) {
-        return data[index];
-    }
+    int getSize() const { return currentSize; }
+    T& operator[](int index) { return data[index]; }
 };
 
 #endif
