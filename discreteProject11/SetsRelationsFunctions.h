@@ -21,18 +21,23 @@ private:
     SimpleVector<Room> roomSet;
 
 public:
-    // NEW: Allow other modules to see the list of courses
-    SimpleVector<Course>* getRawCourseData() { return &courseSet; }
+   
+    SimpleVector<Course>* getRawCourseData() { //this one for module 1 ki help
+        return &courseSet; 
+    }
+
+    //simple adders
     void addStudent(const Student& s) { studentSet.push_back(s); }
     void addCourse(const Course& c) { courseSet.push_back(c); }
     void addFaculty(const Faculty& f) { facultySet.push_back(f); }
     void addRoom(const Room& r) { roomSet.push_back(r); }
-
+    //finders
     Student* findStudent(int id);
     Course* findCourse(int id);
     Faculty* findFaculty(int id);
     Room* findRoom(int id);
 
+    //printers
     void printStudentSet();
     void printCourseSet();
     void printFacultySet();
@@ -65,9 +70,13 @@ public:
     SimpleVector<RelationPair<int, int>>* getRawStudentCourseData() { return &studentCourseRel; }
     RelationModule(SetModule* sm) : setModule(sm) {}
 
+    //sada adders for those vectors
     void addStudentCourseRelation(int studentId, int courseId);
     void addFacultyCourseRelation(int facultyId, int courseId);
     void addCourseRoomRelation(int courseId, int roomId);
+
+
+
 
     bool isReflexive(SimpleVector<RelationPair<int, int>>& rel);
     bool isSymmetric(SimpleVector<RelationPair<int, int>>& rel);
@@ -77,6 +86,8 @@ public:
     void composeRelations(SimpleVector<RelationPair<int, int>>& rel1,
         SimpleVector<RelationPair<int, int>>& rel2);
 
+
+    //simple printers, will take the id, jump to it and print sare pairs in which it exists
     void printStudentCourses(int studentId);
     void printCourseFaculty(int courseId);
     void printCourseRooms(int courseId);

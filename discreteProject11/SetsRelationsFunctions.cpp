@@ -79,11 +79,15 @@ void SetModule::printRoomSet() {
     }
 }
 
-bool SetModule::isSubset(SimpleVector<int>& sub, SimpleVector<int>& sup) {
-    for (int i = 0; i < sub.getSize(); i++) {
+bool SetModule::isSubset(SimpleVector<int>& sub, SimpleVector<int>& sup)// checks subset k sare elements ki instance in superset k elements aik aik karke
+{
+    for (int i = 0; i < sub.getSize(); i++)
+    {
         bool found = false;
-        for (int j = 0; j < sup.getSize(); j++) {
-            if (sub[i] == sup[j]) {
+        for (int j = 0; j < sup.getSize(); j++)
+        {
+            if (sub[i] == sup[j])
+            {
                 found = true;
                 break;
             }
@@ -93,11 +97,14 @@ bool SetModule::isSubset(SimpleVector<int>& sub, SimpleVector<int>& sup) {
     return true;
 }
 
-void SetModule::printCommonStudents(SimpleVector<int>& set1, SimpleVector<int>& set2) {
+void SetModule::printCommonStudents(SimpleVector<int>& set1, SimpleVector<int>& set2) //checks both and prints unke common elements
+{
     cout << "\nCommon Students: ";
     bool found = false;
-    for (int i = 0; i < set1.getSize(); i++) {
-        for (int j = 0; j < set2.getSize(); j++) {
+    for (int i = 0; i < set1.getSize(); i++) 
+    {
+        for (int j = 0; j < set2.getSize(); j++)
+        {
             if (set1[i] == set2[j]) {
                 if (found) cout << ", ";
                 cout << set1[i];
@@ -140,13 +147,21 @@ void RelationModule::addCourseRoomRelation(int courseId, int roomId) {
     }
 }
 
-bool RelationModule::isReflexive(SimpleVector<RelationPair<int, int>>& rel) { return true; }
+bool RelationModule::isReflexive(SimpleVector<RelationPair<int, int>>& rel) //dawg what
+{
+    return true; 
+}
 
-bool RelationModule::isSymmetric(SimpleVector<RelationPair<int, int>>& rel) {
-    for (int i = 0; i < rel.getSize(); i++) {
+bool RelationModule::isSymmetric(SimpleVector<RelationPair<int, int>>& rel)
+
+{
+    for (int i = 0; i < rel.getSize(); i++) 
+    {
         bool found = false;
-        for (int j = 0; j < rel.getSize(); j++) {
-            if (rel[i].a == rel[j].b && rel[i].b == rel[j].a) {
+        for (int j = 0; j < rel.getSize(); j++) 
+        {
+            if (rel[i].a == rel[j].b && rel[i].b == rel[j].a)
+            {
                 found = true;
                 break;
             }
@@ -156,13 +171,18 @@ bool RelationModule::isSymmetric(SimpleVector<RelationPair<int, int>>& rel) {
     return true;
 }
 
-bool RelationModule::isTransitive(SimpleVector<RelationPair<int, int>>& rel) {
-    for (int i = 0; i < rel.getSize(); i++) {
-        for (int j = 0; j < rel.getSize(); j++) {
+bool RelationModule::isTransitive(SimpleVector<RelationPair<int, int>>& rel) 
+{
+    for (int i = 0; i < rel.getSize(); i++) 
+    {
+        for (int j = 0; j < rel.getSize(); j++) 
+        {
             if (rel[i].b == rel[j].a) {
                 bool found = false;
-                for (int k = 0; k < rel.getSize(); k++) {
-                    if (rel[k].a == rel[i].a && rel[k].b == rel[j].b) {
+                for (int k = 0; k < rel.getSize(); k++) 
+                {
+                    if (rel[k].a == rel[i].a && rel[k].b == rel[j].b)
+                    {
                         found = true;
                         break;
                     }
