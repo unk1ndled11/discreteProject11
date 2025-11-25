@@ -15,6 +15,7 @@ public:
     SchedulingModule schedulingModule;
     CombinatoricsModule combinatoricsModule;
     InductionModule inductionModule;
+    LogicModule logicModule;
 
     DiscreteMathModule()
         : relationModule(&setModule),
@@ -52,6 +53,7 @@ void printMainMenu() {
     cout << "  10. Course Scheduling (Module 1) [NEW]\n"; // Added
     cout << "  11. Combinatorics & Groups (Module 2) [NEW]\n";
     cout << "  12. Induction Proofs (Module 3) [NEW]\n";
+    cout << "  13. Logic Engine (Module 4) [NEW]\n";
     cout << "  9. Exit\n";
     cout << "--------------------------------------------------------\n";
 }
@@ -290,6 +292,50 @@ void querySetUI() {
         }
     }
 }
+void logicMenuUI() {
+    int choice;
+    while (true) {
+        cout << "\n[ MODULE 4: LOGIC & INFERENCE ]\n";
+        cout << "  1. Add Logic Rule (If P -> Q)\n";
+        cout << "  2. Add Known Fact (P)\n";
+        cout << "  3. Run Inference Engine (Derive Conclusions)\n";
+        cout << "  4. Load University Policies (Sample Rules)\n";
+        cout << "  5. Back to Main Menu\n";
+        cout << "Choice: ";
+        cin >> choice;
+        cin.ignore(); // Clear buffer for string inputs
+
+        if (choice == 5) return;
+
+        char buf1[100], buf2[100];
+
+        switch (choice) {
+        case 1:
+            cout << "Enter Condition (P): "; cin.getline(buf1, 100);
+            cout << "Enter Result (Q): "; cin.getline(buf2, 100);
+            engine.logicModule.addRule(buf1, buf2);
+            break;
+        case 2:
+            cout << "Enter Fact: "; cin.getline(buf1, 100);
+            engine.logicModule.addFact(buf1);
+            break;
+        case 3:
+            engine.logicModule.runInferenceEngine();
+            break;
+        case 4:
+            // Pre-load some fun FAST University rules
+            engine.logicModule.addRule("High GPA", "Dean's List");
+            engine.logicModule.addRule("Dean's List", "Scholarship");
+            engine.logicModule.addRule("Scholarship", "Happy Student");
+            engine.logicModule.addRule("Failed CS101", "Probation");
+            engine.logicModule.addRule("Probation", "Cannot take Extra Credit");
+            cout << " [OK] Policies Loaded.\n";
+            break;
+        default:
+            cout << "Invalid choice.\n";
+        }
+    }
+}
 
 void consistencyCheckUI() {
     cout << "\n[ CONSISTENCY CHECK ]\n";
@@ -485,7 +531,9 @@ int main() {
         case 8: consistencyCheckUI(); break;
         case 10: schedulingMenuUI(); break; //
         case 11: combinatoricsMenuUI(); break;
-        case 12: inductionMenuUI(); break; // 
+        case 12: inductionMenuUI(); break;
+        case 13: logicMenuUI(); break;// 
+
         case 9:
             cout << "\nThank you for using UNIDISC ENGINE!\nGoodbye!\n";
             return 0;

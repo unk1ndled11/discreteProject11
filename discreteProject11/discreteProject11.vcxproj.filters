@@ -30,6 +30,9 @@
     <ClCompile Include="InductionModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LogicModule.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities.h">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="InductionModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
