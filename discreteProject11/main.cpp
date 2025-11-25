@@ -3,6 +3,7 @@
 #include <cstdlib> // For system("cls")
 // Add to includes
 #include "SchedulingModule.h"
+#include "CombinatoricsModule.h"
 
 // Define the Engine Class here (remove it from SetsRelationsFunctions.h if it causes issues, or just add the new field)
 class DiscreteMathModule {
@@ -11,11 +12,12 @@ public:
     RelationModule relationModule;
     FunctionModule functionModule;
     SchedulingModule schedulingModule;
+    CombinatoricsModule combinatoricsModule;
 
     DiscreteMathModule()
         : relationModule(&setModule),
         functionModule(&setModule),
-        schedulingModule(&setModule, &relationModule)
+        schedulingModule(&setModule, &relationModule), combinatoricsModule(&setModule)
     {}
 };
 
@@ -46,6 +48,7 @@ void printMainMenu() {
     cout << "  7. Query Sets & Display (Module 5)\n";
     cout << "  8. Verify System Consistency\n";
     cout << "  10. Course Scheduling (Module 1) [NEW]\n"; // Added
+    cout << "  11. Combinatorics & Groups (Module 2) [NEW]\n";
     cout << "  9. Exit\n";
     cout << "--------------------------------------------------------\n";
 }
@@ -344,6 +347,42 @@ void schedulingMenuUI() {
     }
 }
 
+void combinatoricsMenuUI() {
+    int choice;
+    while (true) {
+        cout << "\n[ MODULE 2: COMBINATORICS (Groups) ]\n";
+        cout << "  1. Calculate Combinations C(n, r)\n";
+        cout << "  2. Calculate Permutations P(n, r)\n";
+        cout << "  3. Generate Student Project Groups\n";
+        cout << "  4. Back to Main Menu\n";
+        cout << "Choice: ";
+        cin >> choice;
+
+        if (choice == 4) return;
+
+        int n, r;
+        switch (choice) {
+        case 1:
+            cout << "Enter n (Total items): "; cin >> n;
+            cout << "Enter r (Items to choose): "; cin >> r;
+            cout << "Result C(" << n << "," << r << ") = "
+                << engine.combinatoricsModule.calculateCombinations(n, r) << endl;
+            break;
+        case 2:
+            cout << "Enter n (Total items): "; cin >> n;
+            cout << "Enter r (Items to arrange): "; cin >> r;
+            cout << "Result P(" << n << "," << r << ") = "
+                << engine.combinatoricsModule.calculatePermutations(n, r) << endl;
+            break;
+        case 3:
+            cout << "Enter Group Size: "; cin >> r;
+            engine.combinatoricsModule.generateStudentGroups(r);
+            break;
+        default:
+            cout << "Invalid choice.\n";
+        }
+    }
+}
 
 
 void sampleDataUI() {
@@ -405,6 +444,7 @@ int main() {
         case 7: querySetUI(); break;
         case 8: consistencyCheckUI(); break;
         case 10: schedulingMenuUI(); break; //
+        case 11: combinatoricsMenuUI(); break;
         case 9:
             cout << "\nThank you for using UNIDISC ENGINE!\nGoodbye!\n";
             return 0;

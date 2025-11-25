@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CombinatoricsModule.cpp" />
     <ClCompile Include="SchedulingModule.cpp" />
     <ClCompile Include="SetsRelationsFunctions.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CombinatoricsModule.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="SchedulingModule.h" />
     <ClInclude Include="SetsRelationsFunctions.h" />
