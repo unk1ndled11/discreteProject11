@@ -12,15 +12,13 @@ private:
 public:
     ProofModule(SetModule* sm, RelationModule* rm) : setModule(sm), relationModule(rm) {}
 
-    // 1. Generate Formal Proof for Reflexivity
-    // Prints a step-by-step mathematical argument.
+    // reflexivity proof
     void proveReflexivity();
 
-    // 2. Generate Formal Proof for Transitivity
-    // Shows the logic chain for every connection.
+    // transitivity proof
     void proveTransitivity();
 
-    // 3. Generate Formal Proof for Symmetry
+    // symmetry proof
     void proveSymmetry();
 };
 

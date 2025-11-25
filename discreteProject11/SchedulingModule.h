@@ -2,12 +2,11 @@
 #define SCHEDULING_MODULE_H
 
 #include "Entities.h"
-#include "SetsRelationsFunctions.h" // We need access to student history
+#include "SetsRelationsFunctions.h" 
 
 class SchedulingModule {
 private:
-    // Stores pairs: <CourseID, PrerequisiteID>
-    // Example: <102, 101> means 102 requires 101
+    // stores pairs: <course id, prereq id>
     SimpleVector<RelationPair<int, int>> prerequisiteRules;
 
     SetModule* setModule;
@@ -17,19 +16,19 @@ public:
     SchedulingModule(SetModule* sm, RelationModule* rm)
         : setModule(sm), relationModule(rm) {}
 
-    // 1. Add a rule: courseId requires prereqId
+    // rule add karnay wala function
     void addPrerequisite(int courseId, int prereqId);
 
-    // 2. Check if a student meets prerequisites for a specific course
+    // check eligibility
     bool checkPrerequisites(int studentId, int courseId);
 
-    // 3. Suggest courses a student is eligible for next
+    // suggest courses
     void suggestCoursesForStudent(int studentId);
 
-    // 4. View all prerequisite rules
+    // view rules
     void printPrerequisites();
 
-    // 5. Verify chains (Recursive/Inductive check for cycles)
+    // verify chains
     bool validatePrerequisiteChain(int courseId, SimpleVector<int>& visited);
 };
 

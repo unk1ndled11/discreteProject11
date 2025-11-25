@@ -8,8 +8,16 @@ private:
     int capacity;
     int currentSize;
 
+    // size adjust karnay wala function
     void resize() {
-        capacity = (capacity == 0) ? 1 : capacity * 2;
+        // check if capacity is 0
+        if (capacity == 0) {
+            capacity = 1;
+        }
+        else {
+            capacity = capacity * 2;
+        }
+
         T* newData = new T[capacity];
         for (int i = 0; i < currentSize; i++) {
             newData[i] = data[i];
@@ -19,9 +27,10 @@ private:
     }
 
 public:
+    // constructor
     SimpleVector() : data(nullptr), capacity(0), currentSize(0) {}
 
-    // Copy constructor (Essential for managing data correctly without STL)
+    // copy constructor for data management
     SimpleVector(const SimpleVector& other) {
         capacity = other.capacity;
         currentSize = other.currentSize;
@@ -31,10 +40,12 @@ public:
         }
     }
 
+    // destructor
     ~SimpleVector() {
         if (data) delete[] data;
     }
 
+    // element add karnay wala function
     void push_back(const T& element) {
         if (currentSize == capacity) {
             resize();
@@ -42,6 +53,7 @@ public:
         data[currentSize++] = element;
     }
 
+    // element remove karnay wala function
     void remove(int index) {
         if (index < 0 || index >= currentSize) return;
         for (int i = index; i < currentSize - 1; i++) {
@@ -50,6 +62,7 @@ public:
         currentSize--;
     }
 
+    // getters
     int getSize() const { return currentSize; }
     T& operator[](int index) { return data[index]; }
 };

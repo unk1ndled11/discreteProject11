@@ -12,15 +12,13 @@ private:
 public:
     InductionModule(SetModule* sm, RelationModule* rm) : setModule(sm), relationModule(rm) {}
 
-    // 1. Weak Induction: Verify a linear chain (A -> B -> C -> D)
-    // Proofs that if you start at A, you can legally reach D.
+    // weak induction logic
     bool proveCourseChain(SimpleVector<int>& courseChain);
 
-    // 2. Strong Induction: Verify eligibility for a target based on COMPLETE history.
-    // Proves: (Has taken 1..k) -> Can take k+1
+    // strong induction logic
     bool provePrerequisiteSatisfaction(int studentId, int targetCourseId);
 
-    // Helper to print the "Proof Steps"
+    // helper
     void printProofStep(int step, const char* logic);
 };
 
