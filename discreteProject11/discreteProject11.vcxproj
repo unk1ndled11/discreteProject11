@@ -130,6 +130,7 @@
     <ClCompile Include="CombinatoricsModule.cpp" />
     <ClCompile Include="InductionModule.cpp" />
     <ClCompile Include="LogicModule.cpp" />
+    <ClCompile Include="ProofModule.cpp" />
     <ClCompile Include="SchedulingModule.cpp" />
     <ClCompile Include="SetsRelationsFunctions.cpp" />
     <ClCompile Include="main.cpp" />

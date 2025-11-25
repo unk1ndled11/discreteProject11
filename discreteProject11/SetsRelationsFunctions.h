@@ -75,6 +75,7 @@ private:
     SimpleVector<RelationPair<int, int>> studentCourseRel;
     SimpleVector<RelationPair<int, int>> facultyCourseRel;
     SimpleVector<RelationPair<int, int>> courseRoomRel;
+    SimpleVector<RelationPair<int, int>> studentPeerRel;
     SetModule* setModule;
 
 public:
@@ -84,7 +85,7 @@ public:
     void addStudentCourseRelation(int studentId, int courseId);
     void addFacultyCourseRelation(int facultyId, int courseId);
     void addCourseRoomRelation(int courseId, int roomId);
-
+    void addStudentPeerRelation(int s1, int s2);
     // === HELPER FOR MODULE 1 (SCHEDULING) ===
     // CRITICAL: Scheduling Module needs to check student history.
     SimpleVector<RelationPair<int, int>>* getRawStudentCourseData() { return &studentCourseRel; }
@@ -115,6 +116,8 @@ public:
     void printCourseRooms(int courseId);
     void printAllRelations();
     int getStudentCourseRelCount() const { return studentCourseRel.getSize(); }
+
+    SimpleVector<RelationPair<int, int>>* getRawPeerData() { return &studentPeerRel; }
 };
 
 // ============== FUNCTIONS MODULE (Module 7) ==============

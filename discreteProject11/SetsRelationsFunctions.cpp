@@ -237,6 +237,15 @@ void RelationModule::composeRelations(SimpleVector<RelationPair<int, int>>& r1, 
         }
     }
 }
+void RelationModule::addStudentPeerRelation(int s1, int s2) {
+    if (setModule->findStudent(s1) && setModule->findStudent(s2)) {
+        studentPeerRel.push_back(RelationPair<int, int>(s1, s2));
+        cout << " [OK] Peer Relation Added: " << s1 << " <-> " << s2 << "\n";
+    }
+    else {
+        cout << " [Error] Invalid Student ID.\n";
+    }
+}
 
 void RelationModule::printStudentCourses(int id) {
     cout << "\nCourses for Student " << id << ":\n";

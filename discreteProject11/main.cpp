@@ -54,6 +54,7 @@ void printMainMenu() {
     cout << "  11. Combinatorics & Groups (Module 2) [NEW]\n";
     cout << "  12. Induction Proofs (Module 3) [NEW]\n";
     cout << "  13. Logic Engine (Module 4) [NEW]\n";
+    cout << "  14. Add Student Peer Relation (A-A Relation for Proofs)\n";
     cout << "  9. Exit\n";
     cout << "--------------------------------------------------------\n";
 }
@@ -533,8 +534,14 @@ int main() {
         case 11: combinatoricsMenuUI(); break;
         case 12: inductionMenuUI(); break;
         case 13: logicMenuUI(); break;// 
-
         case 9:
+            int id1, id2;
+            cout << "Enter Student ID 1: "; cin >> id1;
+            cout << "Enter Student ID 2: "; cin >> id2;
+            engine.relationModule.addStudentPeerRelation(id1, id2);
+            break;
+
+        case 14:
             cout << "\nThank you for using UNIDISC ENGINE!\nGoodbye!\n";
             return 0;
         default:
