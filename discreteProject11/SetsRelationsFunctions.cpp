@@ -4,9 +4,9 @@
 
 using namespace std;
 
-// ========== SET MODULE IMPLEMENTATIONS ==========
+// set module implementation
 
-// Finders
+// finders
 Student* SetModule::findStudent(int id) {
     for (int i = 0; i < studentSet.getSize(); i++) if (studentSet[i].id == id) return &studentSet[i];
     return nullptr;
@@ -24,7 +24,7 @@ Room* SetModule::findRoom(int id) {
     return nullptr;
 }
 
-// Helpers for Math (Extract IDs)
+// math helpers
 SimpleVector<int> SetModule::getAllStudentIDs() {
     SimpleVector<int> ids;
     for (int i = 0; i < studentSet.getSize(); i++) ids.push_back(studentSet[i].id);
@@ -46,7 +46,7 @@ SimpleVector<int> SetModule::getAllRoomIDs() {
     return ids;
 }
 
-// Set Operations
+// set operations
 SimpleVector<int> SetModule::getUnion(SimpleVector<int>& setA, SimpleVector<int>& setB) {
     SimpleVector<int> result;
     for (int i = 0; i < setA.getSize(); i++) result.push_back(setA[i]);
@@ -84,43 +84,43 @@ bool SetModule::isSubset(SimpleVector<int>& sub, SimpleVector<int>& sup) {
     return true;
 }
 
-// Printers
+// printers
 void SetModule::printStudentSet() {
-    cout << "\n=== STUDENT SET ===\n";
-    cout << left << setw(5) << "ID" << " | " << setw(20) << "Name" << " | " << setw(10) << "Semester" << endl;
+    cout << "\n=== student set ===\n";
+    cout << left << setw(5) << "id" << " | " << setw(20) << "name" << " | " << setw(10) << "semester" << endl;
     cout << "-----+----------------------+----------" << endl;
     for (int i = 0; i < studentSet.getSize(); i++) {
         cout << left << setw(5) << studentSet[i].id << " | " << setw(20) << studentSet[i].name << " | " << setw(10) << studentSet[i].semester << endl;
     }
 }
 void SetModule::printCourseSet() {
-    cout << "\n=== COURSE SET ===\n";
-    cout << left << setw(5) << "ID" << " | " << setw(10) << "Code" << " | " << setw(30) << "Title" << " | " << setw(7) << "Credits" << endl;
+    cout << "\n=== course set ===\n";
+    cout << left << setw(5) << "id" << " | " << setw(10) << "code" << " | " << setw(30) << "title" << " | " << setw(7) << "credits" << endl;
     cout << "-----+----------+------------------------------+-------" << endl;
     for (int i = 0; i < courseSet.getSize(); i++) {
         cout << left << setw(5) << courseSet[i].id << " | " << setw(10) << courseSet[i].code << " | " << setw(30) << courseSet[i].title << " | " << setw(7) << courseSet[i].credits << endl;
     }
 }
 void SetModule::printFacultySet() {
-    cout << "\n=== FACULTY SET ===\n";
-    cout << left << setw(5) << "ID" << " | " << setw(20) << "Name" << " | " << setw(20) << "Department" << endl;
+    cout << "\n=== faculty set ===\n";
+    cout << left << setw(5) << "id" << " | " << setw(20) << "name" << " | " << setw(20) << "department" << endl;
     cout << "-----+---------------------+---------------------" << endl;
     for (int i = 0; i < facultySet.getSize(); i++) {
         cout << left << setw(5) << facultySet[i].id << " | " << setw(20) << facultySet[i].name << " | " << setw(20) << facultySet[i].department << endl;
     }
 }
 void SetModule::printRoomSet() {
-    cout << "\n=== ROOM SET ===\n";
-    cout << left << setw(5) << "ID" << " | " << setw(10) << "Code" << " | " << setw(10) << "Capacity" << endl;
+    cout << "\n=== room set ===\n";
+    cout << left << setw(5) << "id" << " | " << setw(10) << "code" << " | " << setw(10) << "capacity" << endl;
     cout << "-----+----------+----------" << endl;
     for (int i = 0; i < roomSet.getSize(); i++) {
         cout << left << setw(5) << roomSet[i].id << " | " << setw(10) << roomSet[i].code << " | " << setw(10) << roomSet[i].capacity << endl;
     }
 }
 void SetModule::printCommonStudents(SimpleVector<int>& set1, SimpleVector<int>& set2) {
-    cout << "\nCommon Students: ";
+    cout << "\ncommon students: ";
     SimpleVector<int> common = getIntersection(set1, set2);
-    if (common.getSize() == 0) cout << "None";
+    if (common.getSize() == 0) cout << "none";
     else {
         for (int i = 0; i < common.getSize(); i++) {
             if (i > 0) cout << ", ";
@@ -130,33 +130,33 @@ void SetModule::printCommonStudents(SimpleVector<int>& set1, SimpleVector<int>& 
     cout << endl;
 }
 
-// ========== RELATION MODULE IMPLEMENTATIONS ==========
+// relation module implementation
 
 void RelationModule::addStudentCourseRelation(int s, int c) {
     if (setModule->findStudent(s) && setModule->findCourse(c)) {
         studentCourseRel.push_back(RelationPair<int, int>(s, c));
-        cout << " [OK] Relation Added.\n";
+        cout << " ok: relation added.\n";
     }
-    else cout << " [Error] Invalid ID.\n";
+    else cout << " error: invalid id.\n";
 }
 void RelationModule::addFacultyCourseRelation(int f, int c) {
     if (setModule->findFaculty(f) && setModule->findCourse(c)) {
         facultyCourseRel.push_back(RelationPair<int, int>(f, c));
-        cout << " [OK] Relation Added.\n";
+        cout << " ok: relation added.\n";
     }
-    else cout << " [Error] Invalid ID.\n";
+    else cout << " error: invalid id.\n";
 }
 void RelationModule::addCourseRoomRelation(int c, int r) {
     if (setModule->findCourse(c) && setModule->findRoom(r)) {
         courseRoomRel.push_back(RelationPair<int, int>(c, r));
-        cout << " [OK] Relation Added.\n";
+        cout << " ok: relation added.\n";
     }
-    else cout << " [Error] Invalid ID.\n";
+    else cout << " error: invalid id.\n";
 }
 
-// === DISCRETE MATH PROPERTIES ===
+// discrete math properties
 
-// Reflexive: Checks if EVERY element in the universe relates to itself
+// reflexive check
 bool RelationModule::isReflexive(SimpleVector<RelationPair<int, int>>& rel, SimpleVector<int>& universe) {
     for (int i = 0; i < universe.getSize(); i++) {
         int val = universe[i];
@@ -172,12 +172,11 @@ bool RelationModule::isReflexive(SimpleVector<RelationPair<int, int>>& rel, Simp
     return true;
 }
 
-// Symmetric: Checks if (a,b) -> (b,a)
+// symmetric check
 bool RelationModule::isSymmetric(SimpleVector<RelationPair<int, int>>& rel) {
     for (int i = 0; i < rel.getSize(); i++) {
         int a = rel[i].a;
         int b = rel[i].b;
-        // Look for (b,a)
         bool foundInverse = false;
         for (int j = 0; j < rel.getSize(); j++) {
             if (rel[j].a == b && rel[j].b == a) {
@@ -190,15 +189,15 @@ bool RelationModule::isSymmetric(SimpleVector<RelationPair<int, int>>& rel) {
     return true;
 }
 
-// Transitive: Checks if (a,b) ^ (b,c) -> (a,c)
+// transitive check
 bool RelationModule::isTransitive(SimpleVector<RelationPair<int, int>>& rel) {
     for (int i = 0; i < rel.getSize(); i++) {
         for (int j = 0; j < rel.getSize(); j++) {
-            if (rel[i].b == rel[j].a) { // Chain found: a->b and b->c
+            if (rel[i].b == rel[j].a) { // chain found
                 int a = rel[i].a;
                 int c = rel[j].b;
 
-                // Must find a->c
+                // must find a->c
                 bool foundShortcut = false;
                 for (int k = 0; k < rel.getSize(); k++) {
                     if (rel[k].a == a && rel[k].b == c) {
@@ -226,8 +225,8 @@ SimpleVector<RelationPair<int, int>> RelationModule::getInverse(SimpleVector<Rel
 }
 
 void RelationModule::composeRelations(SimpleVector<RelationPair<int, int>>& r1, SimpleVector<RelationPair<int, int>>& r2) {
-    cout << "\nComposed Relations (R1 o R2):\n";
-    cout << left << setw(10) << "From" << " | " << setw(10) << "To" << endl;
+    cout << "\ncomposed relations:\n";
+    cout << left << setw(10) << "from" << " | " << setw(10) << "to" << endl;
     cout << "-----------+-----------" << endl;
     for (int i = 0; i < r1.getSize(); i++) {
         for (int j = 0; j < r2.getSize(); j++) {
@@ -240,15 +239,15 @@ void RelationModule::composeRelations(SimpleVector<RelationPair<int, int>>& r1, 
 void RelationModule::addStudentPeerRelation(int s1, int s2) {
     if (setModule->findStudent(s1) && setModule->findStudent(s2)) {
         studentPeerRel.push_back(RelationPair<int, int>(s1, s2));
-        cout << " [OK] Peer Relation Added: " << s1 << " <-> " << s2 << "\n";
+        cout << " ok: peer relation added: " << s1 << " <-> " << s2 << "\n";
     }
     else {
-        cout << " [Error] Invalid Student ID.\n";
+        cout << " error: invalid student id.\n";
     }
 }
 
 void RelationModule::printStudentCourses(int id) {
-    cout << "\nCourses for Student " << id << ":\n";
+    cout << "\ncourses for student " << id << ":\n";
     bool found = false;
     for (int i = 0; i < studentCourseRel.getSize(); i++) {
         if (studentCourseRel[i].a == id) {
@@ -259,11 +258,11 @@ void RelationModule::printStudentCourses(int id) {
             }
         }
     }
-    if (!found) cout << "  No courses found.\n";
+    if (!found) cout << "  no courses found.\n";
 }
 
 void RelationModule::printCourseFaculty(int id) {
-    cout << "\nFaculty for Course " << id << ":\n";
+    cout << "\nfaculty for course " << id << ":\n";
     bool found = false;
     for (int i = 0; i < facultyCourseRel.getSize(); i++) {
         if (facultyCourseRel[i].b == id) {
@@ -274,28 +273,28 @@ void RelationModule::printCourseFaculty(int id) {
             }
         }
     }
-    if (!found) cout << "  No faculty found.\n";
+    if (!found) cout << "  no faculty found.\n";
 }
 
 void RelationModule::printCourseRooms(int id) {
-    cout << "\nRooms for Course " << id << ":\n";
+    cout << "\nrooms for course " << id << ":\n";
     bool found = false;
     for (int i = 0; i < courseRoomRel.getSize(); i++) {
         if (courseRoomRel[i].a == id) {
             Room* r = setModule->findRoom(courseRoomRel[i].b);
             if (r) {
-                cout << "  - " << r->code << " (Cap: " << r->capacity << ")" << endl;
+                cout << "  - " << r->code << " (cap: " << r->capacity << ")" << endl;
                 found = true;
             }
         }
     }
-    if (!found) cout << "  No rooms found.\n";
+    if (!found) cout << "  no rooms found.\n";
 }
 
 void RelationModule::printAllRelations() {
-    cout << "\n=== ALL RELATIONS ===\n";
-    cout << "\nSTUDENT-COURSE RELATIONS:\n";
-    cout << left << setw(12) << "Student ID" << " | " << setw(12) << "Course ID" << endl;
+    cout << "\n=== all relations ===\n";
+    cout << "\nstudent-course relations:\n";
+    cout << left << setw(12) << "student id" << " | " << setw(12) << "course id" << endl;
     cout << "--------------+--------------" << endl;
     for (int i = 0; i < studentCourseRel.getSize(); i++) {
         cout << left << setw(12) << studentCourseRel[i].a << " | " << setw(12) << studentCourseRel[i].b << endl;
@@ -303,7 +302,7 @@ void RelationModule::printAllRelations() {
 }
 
 
-// ========== FUNCTION MODULE IMPLEMENTATIONS ==========
+// function module implementation
 
 bool FunctionModule::isFunctionValid(SimpleVector<RelationPair<int, int>>& func) {
     for (int i = 0; i < func.getSize(); i++) {
@@ -317,42 +316,41 @@ bool FunctionModule::isFunctionValid(SimpleVector<RelationPair<int, int>>& func)
 bool FunctionModule::addStudentCourseFunction(int s, int c) {
     studentCourseFunc.push_back(RelationPair<int, int>(s, c));
     if (isFunctionValid(studentCourseFunc)) {
-        cout << " [OK] Function Added.\n"; return true;
+        cout << " ok: function added.\n"; return true;
     }
     else {
         studentCourseFunc.remove(studentCourseFunc.getSize() - 1);
-        cout << " [Error] Invalid: Multiple mappings for input.\n"; return false;
+        cout << " error: invalid: multiple mappings.\n"; return false;
     }
 }
 
 bool FunctionModule::addCourseFacultyFunction(int c, int f) {
     courseFacultyFunc.push_back(RelationPair<int, int>(c, f));
     if (isFunctionValid(courseFacultyFunc)) {
-        cout << " [OK] Function Added.\n"; return true;
+        cout << " ok: function added.\n"; return true;
     }
     else {
         courseFacultyFunc.remove(courseFacultyFunc.getSize() - 1);
-        cout << " [Error] Invalid: Multiple mappings for input.\n"; return false;
+        cout << " error: invalid: multiple mappings.\n"; return false;
     }
 }
 
 bool FunctionModule::addFacultyRoomFunction(int f, int r) {
     facultyRoomFunc.push_back(RelationPair<int, int>(f, r));
     if (isFunctionValid(facultyRoomFunc)) {
-        cout << " [OK] Function Added.\n"; return true;
+        cout << " ok: function added.\n"; return true;
     }
     else {
         facultyRoomFunc.remove(facultyRoomFunc.getSize() - 1);
-        cout << " [Error] Invalid: Multiple mappings for input.\n"; return false;
+        cout << " error: invalid: multiple mappings.\n"; return false;
     }
 }
 
-// === DISCRETE MATH PROPERTIES (FUNCTIONS) ===
+// discrete math properties for functions
 
 bool FunctionModule::isInjective(SimpleVector<RelationPair<int, int>>& func) {
     for (int i = 0; i < func.getSize(); i++) {
         for (int j = i + 1; j < func.getSize(); j++) {
-            // If two different inputs map to the same output -> Not One-to-One
             if (func[i].b == func[j].b) return false;
         }
     }
@@ -379,8 +377,8 @@ bool FunctionModule::isBijective(SimpleVector<RelationPair<int, int>>& func, Sim
 }
 
 void FunctionModule::composeFunctions(SimpleVector<RelationPair<int, int>>& f1, SimpleVector<RelationPair<int, int>>& f2) {
-    cout << "\nComposed Functions (f1 o f2):\n";
-    cout << left << setw(10) << "Input" << " | " << setw(10) << "Intermediate" << " | " << setw(10) << "Output" << endl;
+    cout << "\ncomposed functions:\n";
+    cout << left << setw(10) << "input" << " | " << setw(10) << "middle" << " | " << setw(10) << "output" << endl;
     cout << "-----------+-----------+-----------" << endl;
     for (int i = 0; i < f1.getSize(); i++) {
         for (int j = 0; j < f2.getSize(); j++) {
@@ -392,25 +390,38 @@ void FunctionModule::composeFunctions(SimpleVector<RelationPair<int, int>>& f1, 
 }
 
 void FunctionModule::printAnalysis() {
-    cout << "\n=== DISCRETE FUNCTION ANALYSIS ===\n";
+    cout << "\n=== discrete function analysis ===\n";
 
     SimpleVector<int> allCourses = setModule->getAllCourseIDs();
     SimpleVector<int> allFaculty = setModule->getAllFacultyIDs();
     SimpleVector<int> allRooms = setModule->getAllRoomIDs();
 
-    cout << "1. Course -> Faculty Assignment:\n";
-    cout << "   - Injective (One-to-One)? " << (isInjective(courseFacultyFunc) ? "Yes" : "No") << endl;
-    cout << "   - Surjective (Onto)?      " << (isSurjective(courseFacultyFunc, allFaculty) ? "Yes" : "No") << endl;
-    cout << "   - Bijective?              " << (isBijective(courseFacultyFunc, allFaculty) ? "Yes" : "No") << endl;
+    cout << "1. course -> faculty assignment:\n";
+    cout << "   - injective (one-to-one)? ";
+    if (isInjective(courseFacultyFunc)) cout << "yes"; else cout << "no";
+    cout << endl;
 
-    cout << "\n2. Faculty -> Room Assignment:\n";
-    cout << "   - Injective (One-to-One)? " << (isInjective(facultyRoomFunc) ? "Yes" : "No") << endl;
-    cout << "   - Surjective (Onto)?      " << (isSurjective(facultyRoomFunc, allRooms) ? "Yes" : "No") << endl;
+    cout << "   - surjective (onto)?      ";
+    if (isSurjective(courseFacultyFunc, allFaculty)) cout << "yes"; else cout << "no";
+    cout << endl;
+
+    cout << "   - bijective?              ";
+    if (isBijective(courseFacultyFunc, allFaculty)) cout << "yes"; else cout << "no";
+    cout << endl;
+
+    cout << "\n2. faculty -> room assignment:\n";
+    cout << "   - injective (one-to-one)? ";
+    if (isInjective(facultyRoomFunc)) cout << "yes"; else cout << "no";
+    cout << endl;
+
+    cout << "   - surjective (onto)?      ";
+    if (isSurjective(facultyRoomFunc, allRooms)) cout << "yes"; else cout << "no";
+    cout << endl;
 }
 
 void FunctionModule::printStudentCourseAssignments() {
-    cout << "\n=== STUDENT -> COURSE ASSIGNMENTS ===\n";
-    cout << left << setw(12) << "Student ID" << " | " << setw(12) << "Course ID" << endl;
+    cout << "\n=== student -> course assignments ===\n";
+    cout << left << setw(12) << "student id" << " | " << setw(12) << "course id" << endl;
     cout << "--------------+--------------" << endl;
     for (int i = 0; i < studentCourseFunc.getSize(); i++) {
         cout << left << setw(12) << studentCourseFunc[i].a << " | " << setw(12) << studentCourseFunc[i].b << endl;
@@ -418,8 +429,8 @@ void FunctionModule::printStudentCourseAssignments() {
 }
 
 void FunctionModule::printCourseFacultyAssignments() {
-    cout << "\n=== COURSE -> FACULTY ASSIGNMENTS ===\n";
-    cout << left << setw(12) << "Course ID" << " | " << setw(12) << "Faculty ID" << endl;
+    cout << "\n=== course -> faculty assignments ===\n";
+    cout << left << setw(12) << "course id" << " | " << setw(12) << "faculty id" << endl;
     cout << "--------------+--------------" << endl;
     for (int i = 0; i < courseFacultyFunc.getSize(); i++) {
         cout << left << setw(12) << courseFacultyFunc[i].a << " | " << setw(12) << courseFacultyFunc[i].b << endl;
@@ -427,8 +438,8 @@ void FunctionModule::printCourseFacultyAssignments() {
 }
 
 void FunctionModule::printFacultyRoomAssignments() {
-    cout << "\n=== FACULTY -> ROOM ASSIGNMENTS ===\n";
-    cout << left << setw(12) << "Faculty ID" << " | " << setw(12) << "Room ID" << endl;
+    cout << "\n=== faculty -> room assignments ===\n";
+    cout << left << setw(12) << "faculty id" << " | " << setw(12) << "room id" << endl;
     cout << "--------------+--------------" << endl;
     for (int i = 0; i < facultyRoomFunc.getSize(); i++) {
         cout << left << setw(12) << facultyRoomFunc[i].a << " | " << setw(12) << facultyRoomFunc[i].b << endl;
@@ -436,7 +447,7 @@ void FunctionModule::printFacultyRoomAssignments() {
 }
 
 void FunctionModule::printAllFunctions() {
-    printAnalysis(); // New Analysis call
+    printAnalysis();
     cout << endl;
     printStudentCourseAssignments();
     cout << endl;

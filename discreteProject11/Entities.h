@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// student structure
 struct Student {
     int id;
     char name[100];
@@ -20,15 +21,15 @@ struct Student {
     }
 };
 
+// course structure
 struct Course {
     int id;
     char code[50];
     char title[100];
     int credits;
 
-    // === GRAPH IMPLEMENTATION ===
-    // This vector makes 'Course' a Graph Node. 
-    // It stores the IDs of courses that are required BEFORE this one.
+    // graph node implementation
+    // stores ids of prereqs
     SimpleVector<int> prerequisiteIDs;
 
     Course() : id(0), credits(0) { code[0] = '\0'; title[0] = '\0'; }
@@ -43,6 +44,7 @@ struct Course {
     }
 };
 
+// faculty structure
 struct Faculty {
     int id;
     char name[100];
@@ -60,6 +62,7 @@ struct Faculty {
     }
 };
 
+// room structure
 struct Room {
     int id;
     char code[50];

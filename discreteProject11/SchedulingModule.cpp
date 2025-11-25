@@ -9,36 +9,35 @@ void SchedulingModule::addPrerequisite(int courseId, int prereqId) {
     Course* required = setModule->findCourse(prereqId);
 
     if (target && required) {
-        // GRAPH EDGE ADDITION: Add edge directly to the Node
+        // graph edge addition
         target->prerequisiteIDs.push_back(prereqId);
 
-        // We also track it in our local list just for printing the "View All" menu easily
+        // local list tracking
         prerequisiteRules.push_back(RelationPair<int, int>(courseId, prereqId));
 
-        cout << " [OK] Rule Added: " << target->code << " requires " << required->code << endl;
+        cout << " ok: rule added: " << target->code << " requires " << required->code << endl;
     }
     else {
-        cout << " [Error] Invalid Course IDs." << endl;
+        cout << " error: invalid course ids." << endl;
     }
 }
 
 bool SchedulingModule::checkPrerequisites(int studentId, int courseId) {
     Course* target = setModule->findCourse(courseId);
     if (!target) {
-        cout << " [Error] Course not found." << endl;
+        cout << " error: course not found." << endl;
         return false;
     }
 
     bool allMet = true;
 
-    // GRAPH TRAVERSAL: Accessing the adjacency list directly (O(1) access)
-    // This is much faster than scanning the global list
+    // graph traversal
     SimpleVector<int>& prereqs = target->prerequisiteIDs;
 
     for (int i = 0; i < prereqs.getSize(); i++) {
         int requiredId = prereqs[i];
 
-        // Check history
+        // check history
         bool taken = false;
         SimpleVector<RelationPair<int, int>>* history = relationModule->getRawStudentCourseData();
 
@@ -51,7 +50,14 @@ bool SchedulingModule::checkPrerequisites(int studentId, int courseId) {
 
         if (!taken) {
             Course* c = setModule->findCourse(requiredId);
-            cout << " [X] Missing Prerequisite: " << (c ? c->code : "Unknown") << endl;
+            cout << " missing prereq: ";
+            if (c) {
+                cout << c->code;
+            }
+            else {
+                cout << "unknown";
+            }
+            cout << endl;
             allMet = false;
         }
     }
@@ -59,7 +65,7 @@ bool SchedulingModule::checkPrerequisites(int studentId, int courseId) {
 }
 
 void SchedulingModule::suggestCoursesForStudent(int studentId) {
-    cout << "\n=== SUGGESTED COURSES FOR STUDENT " << studentId << " ===\n";
+    cout << "\n=== suggested courses for student " << studentId << " ===\n";
 
     SimpleVector<Course>* allCourses = setModule->getRawCourseData();
     SimpleVector<RelationPair<int, int>>* history = relationModule->getRawStudentCourseData();
@@ -70,7 +76,7 @@ void SchedulingModule::suggestCoursesForStudent(int studentId) {
         Course* currentCourse = &(*allCourses)[i];
         int cId = currentCourse->id;
 
-        // 1. Check if already taken
+        // 1. check if already taken
         bool alreadyTaken = false;
         for (int j = 0; j < history->getSize(); j++) {
             if ((*history)[j].a == studentId && (*history)[j].b == cId) {
@@ -80,7 +86,7 @@ void SchedulingModule::suggestCoursesForStudent(int studentId) {
         }
         if (alreadyTaken) continue;
 
-        // 2. Check Prerequisites (Using Graph Structure)
+        // 2. check prerequisites
         bool eligible = true;
         SimpleVector<int>& prereqs = currentCourse->prerequisiteIDs;
 
@@ -102,12 +108,12 @@ void SchedulingModule::suggestCoursesForStudent(int studentId) {
         }
     }
 
-    if (!suggestionsFound) cout << "  No eligible courses found (or all completed).\n";
+    if (!suggestionsFound) cout << "  no eligible courses found.\n";
 }
 
 void SchedulingModule::printPrerequisites() {
-    cout << "\n=== PREREQUISITE GRAPH (Adjacency List) ===\n";
-    cout << left << setw(15) << "Course" << " | " << "Requires (Prereqs)" << endl;
+    cout << "\n=== prerequisite graph ===\n";
+    cout << left << setw(15) << "course" << " | " << "requires" << endl;
     cout << "----------------+---------------------" << endl;
 
     SimpleVector<Course>* allCourses = setModule->getRawCourseData();
@@ -118,7 +124,12 @@ void SchedulingModule::printPrerequisites() {
             for (int j = 0; j < c->prerequisiteIDs.getSize(); j++) {
                 if (j > 0) cout << ", ";
                 Course* p = setModule->findCourse(c->prerequisiteIDs[j]);
-                cout << (p ? p->code : "Unknown");
+                if (p) {
+                    cout << p->code;
+                }
+                else {
+                    cout << "unknown";
+                }
             }
             cout << endl;
         }
