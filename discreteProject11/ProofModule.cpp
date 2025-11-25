@@ -5,161 +5,178 @@
 using namespace std;
 
 // 1. REFLEXIVITY PROOF
-// Definition: For EVERY student 'x', is 'x' partners with themselves? (x, x)
+// Definition: For EVERY student 'x', (x, x) must exist in the relation.
 void ProofModule::proveReflexivity() {
     cout << "\n=== FORMAL PROOF: REFLEXIVITY ===\n";
-    cout << "Relation: 'Study Partner' (Student x Student)\n";
-    cout << "Definition: A relation R on set A is reflexive if for all x in A, (x,x) is in R.\n";
+    cout << "Target Relation: 'Study Partner' (Student x Student)\n";
+    cout << "Definition: For all x in Set A, (x,x) must be in R.\n";
     cout << "--------------------------------------------------------\n";
 
     SimpleVector<int> universe = setModule->getAllStudentIDs();
     SimpleVector<RelationPair<int, int>>* rel = relationModule->getRawPeerData();
 
-    int counterExample = -1;
     bool isReflexive = true;
+    int counterExample = -1;
 
-    // Logic Loop
+    cout << "[Analysis Log]\n";
     for (int i = 0; i < universe.getSize(); i++) {
         int x = universe[i];
-        bool selfLoopFound = false;
+        bool found = false;
 
-        // Scan relation for (x, x)
+        // Search for self-loop
         for (int j = 0; j < rel->getSize(); j++) {
             if ((*rel)[j].a == x && (*rel)[j].b == x) {
-                selfLoopFound = true;
+                found = true;
                 break;
             }
         }
 
-        if (!selfLoopFound) {
+        if (found) {
+            cout << "  [Pass] Student " << x << " has self-loop (x,x).\n";
+        }
+        else {
+            cout << "  [FAIL] Student " << x << " is MISSING self-loop (x,x).\n";
             isReflexive = false;
             counterExample = x;
-            break; // Stop looking, we found a flaw
+            break; // Stop at first failure
         }
     }
 
-    // Generate Text
+    cout << "\n--------------------------------------------------------\n";
     if (isReflexive) {
-        cout << "Proof Steps:\n";
-        cout << "1. The Set A (Students) contains " << universe.getSize() << " elements.\n";
-        cout << "2. We inspected every student x in A.\n";
-        cout << "3. For every x, the pair (x, x) was found in R.\n";
-        cout << "CONCLUSION: Since the definition is satisfied for all x, R IS Reflexive. Q.E.D.\n";
+        cout << "MATHEMATICAL CONCLUSION:\n";
+        cout << "1. The Set A contains " << universe.getSize() << " elements.\n";
+        cout << "2. We verified (x,x) exists for every x in A.\n";
+        cout << "3. Therefore, R IS REFLEXIVE. Q.E.D.\n";
     }
     else {
-        cout << "Proof by Counterexample:\n";
+        cout << "PROOF BY COUNTEREXAMPLE:\n";
         cout << "1. Let x = " << counterExample << ".\n";
-        cout << "2. x is an element of Set A.\n";
+        cout << "2. x is an element of the Set of Students.\n";
         cout << "3. However, the pair (" << counterExample << ", " << counterExample << ") is NOT in R.\n";
-        cout << "CONCLUSION: Since there exists an x such that (x,x) is not in R, R is NOT Reflexive. Q.E.D.\n";
+        cout << "4. Therefore, R is NOT REFLEXIVE. Q.E.D.\n";
     }
 }
 
 // 2. SYMMETRY PROOF
-// Definition: If Ali partners Bob, Bob MUST partner Ali.
+// Definition: If (a,b) exists, (b,a) must exist.
 void ProofModule::proveSymmetry() {
     cout << "\n=== FORMAL PROOF: SYMMETRY ===\n";
-    cout << "Definition: R is symmetric if for all (a,b) in R, (b,a) is also in R.\n";
+    cout << "Target Relation: 'Study Partner' (Student x Student)\n";
+    cout << "Definition: For all (a,b) in R, (b,a) must also be in R.\n";
     cout << "--------------------------------------------------------\n";
 
     SimpleVector<RelationPair<int, int>>* rel = relationModule->getRawPeerData();
     bool isSymmetric = true;
     RelationPair<int, int> badPair;
 
-    // Loop through every pair in the relation
+    if (rel->getSize() == 0) {
+        cout << "[Note] Relation is empty. Vacuously Symmetric.\n";
+        return;
+    }
+
+    cout << "[Analysis Log]\n";
     for (int i = 0; i < rel->getSize(); i++) {
         int a = (*rel)[i].a;
         int b = (*rel)[i].b;
 
-        // Skip (a,a) pairs, they are trivially symmetric
-        if (a == b) continue;
+        if (a == b) continue; // (x,x) is trivially symmetric
 
-        // Check if inverse (b,a) exists
-        bool foundInverse = false;
+        bool inverseFound = false;
         for (int j = 0; j < rel->getSize(); j++) {
             if ((*rel)[j].a == b && (*rel)[j].b == a) {
-                foundInverse = true;
+                inverseFound = true;
                 break;
             }
         }
 
-        if (!foundInverse) {
+        if (inverseFound) {
+            cout << "  [Pass] Pair (" << a << "," << b << ") has inverse (" << b << "," << a << ").\n";
+        }
+        else {
+            cout << "  [FAIL] Pair (" << a << "," << b << ") has NO inverse.\n";
             isSymmetric = false;
-            badPair.a = a;
-            badPair.b = b;
+            badPair.a = a; badPair.b = b;
             break;
         }
     }
 
-    // Generate Text
+    cout << "\n--------------------------------------------------------\n";
     if (isSymmetric) {
-        cout << "Proof Steps:\n";
-        cout << "1. Checked all " << rel->getSize() << " pairs in R.\n";
-        cout << "2. For every pair (a,b), the inverse (b,a) was found.\n";
-        cout << "CONCLUSION: R IS Symmetric. Q.E.D.\n";
+        cout << "MATHEMATICAL CONCLUSION:\n";
+        cout << "1. We inspected all pairs in R.\n";
+        cout << "2. For every (a,b), the inverse (b,a) was found.\n";
+        cout << "3. Therefore, R IS SYMMETRIC. Q.E.D.\n";
     }
     else {
-        cout << "Proof by Counterexample:\n";
-        cout << "1. Found pair (" << badPair.a << ", " << badPair.b << ") in R.\n";
-        cout << "2. Searched for inverse pair (" << badPair.b << ", " << badPair.a << ").\n";
-        cout << "3. Inverse pair was NOT found.\n";
-        cout << "CONCLUSION: R is NOT Symmetric. Q.E.D.\n";
+        cout << "PROOF BY COUNTEREXAMPLE:\n";
+        cout << "1. The pair (" << badPair.a << ", " << badPair.b << ") exists in R.\n";
+        cout << "2. However, (" << badPair.b << ", " << badPair.a << ") does NOT exist in R.\n";
+        cout << "3. Therefore, R is NOT SYMMETRIC. Q.E.D.\n";
     }
 }
 
 // 3. TRANSITIVITY PROOF
-// Definition: If A->B and B->C, then A->C must exist.
+// Definition: If (a,b) and (b,c) exist, (a,c) must exist.
 void ProofModule::proveTransitivity() {
     cout << "\n=== FORMAL PROOF: TRANSITIVITY ===\n";
-    cout << "Definition: R is transitive if ((a,b) in R ^ (b,c) in R) -> (a,c) in R.\n";
+    cout << "Target Relation: 'Study Partner' (Student x Student)\n";
+    cout << "Definition: If (a,b) and (b,c) are in R, then (a,c) must be in R.\n";
     cout << "--------------------------------------------------------\n";
 
     SimpleVector<RelationPair<int, int>>* rel = relationModule->getRawPeerData();
     bool isTransitive = true;
     int v1 = -1, v2 = -1, v3 = -1;
 
-    // Loop 1: Find (a, b)
+    cout << "[Analysis Log]\n";
+    // Loop 1: Find (a,b)
     for (int i = 0; i < rel->getSize(); i++) {
         int a = (*rel)[i].a;
         int b = (*rel)[i].b;
 
-        // Loop 2: Find (b, c)
+        // Loop 2: Find (b,c)
         for (int j = 0; j < rel->getSize(); j++) {
-            if ((*rel)[j].a == b) { // Connection found!
+            if ((*rel)[j].a == b) {
                 int c = (*rel)[j].b;
 
-                // We have a chain: a -> b -> c
-                // Now we MUST find a -> c
-                bool foundShortcut = false;
+                // We found a chain: a -> b -> c. 
+                // Now checking for a -> c
+                bool shortcutFound = false;
                 for (int k = 0; k < rel->getSize(); k++) {
                     if ((*rel)[k].a == a && (*rel)[k].b == c) {
-                        foundShortcut = true;
+                        shortcutFound = true;
                         break;
                     }
                 }
 
-                if (!foundShortcut) {
+                if (shortcutFound) {
+                    cout << "  [Pass] Chain (" << a << "," << b << ")->(" << b << "," << c
+                        << ") satisfied by (" << a << "," << c << ").\n";
+                }
+                else {
+                    cout << "  [FAIL] Chain (" << a << "," << b << ")->(" << b << "," << c
+                        << ") BROKEN. (" << a << "," << c << ") missing.\n";
                     isTransitive = false;
                     v1 = a; v2 = b; v3 = c;
-                    break; // Break Loop 2
+                    break;
                 }
             }
         }
-        if (!isTransitive) break; // Break Loop 1
+        if (!isTransitive) break;
     }
 
-    // Generate Text
+    cout << "\n--------------------------------------------------------\n";
     if (isTransitive) {
-        cout << "Proof Steps:\n";
-        cout << "1. Examined all transitive chains ((a,b), (b,c)).\n";
-        cout << "2. For each chain, verified (a,c) exists.\n";
-        cout << "CONCLUSION: R IS Transitive. Q.E.D.\n";
+        cout << "MATHEMATICAL CONCLUSION:\n";
+        cout << "1. We examined all transitive chains in R.\n";
+        cout << "2. All chains were closed (a->c exists).\n";
+        cout << "3. Therefore, R IS TRANSITIVE. Q.E.D.\n";
     }
     else {
-        cout << "Proof by Counterexample:\n";
+        cout << "PROOF BY COUNTEREXAMPLE:\n";
         cout << "1. Found chain: (" << v1 << "," << v2 << ") and (" << v2 << "," << v3 << ").\n";
         cout << "2. This implies (" << v1 << "," << v3 << ") must exist.\n";
-        cout << "3. However, (" << v1 << "," << v3 << ") is NOT in R.\n";
-        cout << "CONCLUSION: R is NOT Transitive. Q.E.D.\n";
+        cout << "3. The pair (" << v1 << "," << v3 << ") is NOT in R.\n";
+        cout << "4. Therefore, R is NOT TRANSITIVE. Q.E.D.\n";
     }
 }
