@@ -140,6 +140,7 @@
     <ClInclude Include="Entities.h" />
     <ClInclude Include="InductionModule.h" />
     <ClInclude Include="LogicModule.h" />
+    <ClInclude Include="ProofModule.h" />
     <ClInclude Include="SchedulingModule.h" />
     <ClInclude Include="SetsRelationsFunctions.h" />
     <ClInclude Include="SimpleVector.h" />

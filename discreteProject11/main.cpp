@@ -5,6 +5,7 @@
 #include "SchedulingModule.h"
 #include "CombinatoricsModule.h"
 #include "InductionModule.h"
+#include "LogicModule.h"
 
 // Define the Engine Class here (remove it from SetsRelationsFunctions.h if it causes issues, or just add the new field)
 class DiscreteMathModule {
@@ -391,7 +392,31 @@ void inductionMenuUI() {
         }
     }
 }
+void proofMenuUI() {
+    int choice;
+    while (true) {
+        cout << "\n[ MODULE 8: AUTOMATED PROOF & VERIFICATION ]\n";
+        cout << "  1. Generate Proof for Reflexivity\n";
+        cout << "  2. Generate Proof for Symmetry\n";
+        cout << "  3. Generate Proof for Transitivity\n";
+        cout << "  4. Back to Main Menu\n";
+        cout << "Choice: ";
+        cin >> choice;
 
+        if (choice == 4) return;
+
+        switch (choice) {
+        case 1: engine.proofModule.proveReflexivity(); break;
+        case 2: engine.proofModule.proveSymmetry(); break;
+        case 3: engine.proofModule.proveTransitivity(); break;
+        default: cout << "Invalid choice.\n";
+        }
+
+        cout << "\n[Note] These proofs are based on Current Student-Course Relations.\n";
+        cout << "Press Enter to continue...";
+        cin.ignore(); cin.get();
+    }
+}
 void schedulingMenuUI() {
     int choice;
     while (true) {
