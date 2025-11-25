@@ -27,6 +27,9 @@
     <ClCompile Include="CombinatoricsModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InductionModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities.h">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="CombinatoricsModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InductionModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

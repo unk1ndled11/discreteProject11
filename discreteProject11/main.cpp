@@ -4,6 +4,7 @@
 // Add to includes
 #include "SchedulingModule.h"
 #include "CombinatoricsModule.h"
+#include "InductionModule.h"
 
 // Define the Engine Class here (remove it from SetsRelationsFunctions.h if it causes issues, or just add the new field)
 class DiscreteMathModule {
@@ -13,11 +14,12 @@ public:
     FunctionModule functionModule;
     SchedulingModule schedulingModule;
     CombinatoricsModule combinatoricsModule;
+    InductionModule inductionModule;
 
     DiscreteMathModule()
         : relationModule(&setModule),
         functionModule(&setModule),
-        schedulingModule(&setModule, &relationModule), combinatoricsModule(&setModule)
+        schedulingModule(&setModule, &relationModule), combinatoricsModule(&setModule), inductionModule(&setModule, &relationModule)
     {}
 };
 
@@ -49,6 +51,7 @@ void printMainMenu() {
     cout << "  8. Verify System Consistency\n";
     cout << "  10. Course Scheduling (Module 1) [NEW]\n"; // Added
     cout << "  11. Combinatorics & Groups (Module 2) [NEW]\n";
+    cout << "  12. Induction Proofs (Module 3) [NEW]\n";
     cout << "  9. Exit\n";
     cout << "--------------------------------------------------------\n";
 }
@@ -303,7 +306,44 @@ void consistencyCheckUI() {
 
     cout << "\n[OK] SYSTEM CONSISTENT - All constraints satisfied\n";
 }
+void inductionMenuUI() {
+    int choice;
+    while (true) {
+        cout << "\n[ MODULE 3: INDUCTION & PROOFS ]\n";
+        cout << "  1. Prove Course Chain (Weak Induction)\n";
+        cout << "  2. Prove Student Eligibility (Strong Induction)\n";
+        cout << "  3. Back to Main Menu\n";
+        cout << "Choice: ";
+        cin >> choice;
 
+        if (choice == 3) return;
+
+        switch (choice) {
+        case 1: {
+            // Let user build a chain to test
+            SimpleVector<int> chain;
+            int count, val;
+            cout << "How many courses in the chain? "; cin >> count;
+            cout << "Enter Course IDs in order (e.g., 101 102 103): ";
+            for (int i = 0; i < count; i++) {
+                cin >> val;
+                chain.push_back(val);
+            }
+            engine.inductionModule.proveCourseChain(chain);
+            break;
+        }
+        case 2: {
+            int sId, cId;
+            cout << "Enter Student ID: "; cin >> sId;
+            cout << "Enter Target Course ID: "; cin >> cId;
+            engine.inductionModule.provePrerequisiteSatisfaction(sId, cId);
+            break;
+        }
+        default:
+            cout << "Invalid choice.\n";
+        }
+    }
+}
 
 void schedulingMenuUI() {
     int choice;
@@ -445,6 +485,7 @@ int main() {
         case 8: consistencyCheckUI(); break;
         case 10: schedulingMenuUI(); break; //
         case 11: combinatoricsMenuUI(); break;
+        case 12: inductionMenuUI(); break; // 
         case 9:
             cout << "\nThank you for using UNIDISC ENGINE!\nGoodbye!\n";
             return 0;
