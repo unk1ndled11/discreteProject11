@@ -5,7 +5,8 @@
 using namespace std;
 
 // factorial
-unsigned long long CombinatoricsModule::factorial(int n) {
+unsigned long long CombinatoricsModule::factorial(int n) 
+{
     if (n < 0) return 0;
     if (n == 0 || n == 1) return 1;
     if (n > 20) {
@@ -13,14 +14,16 @@ unsigned long long CombinatoricsModule::factorial(int n) {
     }
 
     unsigned long long res = 1;
-    for (int i = 2; i <= n; i++) {
+    for (int i = 2; i <= n; i++) 
+    {
         res *= i;
     }
     return res;
 }
 
 // permutations
-unsigned long long CombinatoricsModule::calculatePermutations(int n, int r) {
+unsigned long long CombinatoricsModule::calculatePermutations(int n, int r)
+{
     if (r < 0 || r > n) return 0;
     unsigned long long res = 1;
     for (int i = 0; i < r; i++) {
@@ -30,7 +33,8 @@ unsigned long long CombinatoricsModule::calculatePermutations(int n, int r) {
 }
 
 // combinations
-unsigned long long CombinatoricsModule::calculateCombinations(int n, int r) {
+unsigned long long CombinatoricsModule::calculateCombinations(int n, int r) 
+{
     if (r < 0 || r > n) return 0;
     if (r == 0 || r == n) return 1;
     if (r > n / 2) r = n - r;

@@ -145,13 +145,23 @@ void functionMenuUI() {
     while (true) {
         cout << "\n[ functions module ]\n";
         cout << "  1. view all assignments & analysis\n";
-        cout << "  2. back\n> ";
+        cout << "  2. add course-faculty assignment\n"; 
+        cout << "  3. back\n> ";
         cin >> choice;
-        if (choice == 2) return;
-        if (choice == 1) engine.functionModule.printAllFunctions();
+
+        if (choice == 3) return;
+
+        if (choice == 1) {
+            engine.functionModule.printAllFunctions();
+        }
+        else if (choice == 2) {
+            int c, f;
+            cout << "enter course id: "; cin >> c;
+            cout << "enter faculty id: "; cin >> f;
+            engine.functionModule.addCourseFacultyFunction(c, f);
+        }
     }
 }
-
 void schedulingMenuUI() {
     int choice;
     while (true) {
@@ -337,6 +347,7 @@ int main() {
         cout << "  6.  induction proofs (module 3)\n";
         cout << "  7.  logic inference (module 4)\n";
         cout << "  8.  automated proof gen (module 8)\n";
+        cout << "  9.  consistency check (module 9)\n";
 
         cout << "\n  0.  exit\n> ";
 
@@ -358,6 +369,9 @@ int main() {
         else if (choice == 6) inductionMenuUI();
         else if (choice == 7) logicMenuUI();
         else if (choice == 8) proofMenuUI();
+        else if (choice==9)
+            consistencyCheckUI();
+    
         else if (choice == 0) return 0;
         else cout << "invalid.\n";
     }
